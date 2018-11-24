@@ -54,8 +54,12 @@ static const BOOL kLogVerbose = NO;
     return ret;
 }
 
-- (StrongboxDatabase *)open:(NSData *)data password:(NSString *)password error:(NSError**)error {
-    KdbSerializationData *serializationData = [KdbSerialization deserialize:data password:password ppError:error];
+- (StrongboxDatabase *)open:(NSData *)data password:(NSString *)password error:(NSError **)error {
+    return [self open:data password:password keyFileDigest:nil error:error];
+}
+
+- (StrongboxDatabase *)open:(NSData *)data password:(NSString *)password keyFileDigest:(NSData *)keyFileDigest error:(NSError **)error {
+    KdbSerializationData *serializationData = [KdbSerialization deserialize:data password:password keyFileDigest:keyFileDigest ppError:error];
     
     if(serializationData == nil) {
         NSLog(@"Error getting Decrypting KDB binary: [%@]", *error);
@@ -84,11 +88,20 @@ static const BOOL kLogVerbose = NO;
 
     StrongboxDatabase *ret = [[StrongboxDatabase alloc] initWithRootGroup:rootGroup metadata:metadata masterPassword:password attachments:attachments];
     ret.adaptorTag = serializationData.metaEntries;
+    ret.keyFileDigest = keyFileDigest;
     
     return ret;
 }
 
 - (NSData *)save:(StrongboxDatabase *)database error:(NSError**)error {
+    if(!database.masterPassword && !database.keyFileDigest) {
+        if(error) {
+            *error = [Utils createNSError:@"Master Password not set." errorCode:-3];
+        }
+        
+        return nil;
+    }
+    
     KdbSerializationData *serializationData = [[KdbSerializationData alloc] init];
     
     if(database.rootGroup.childGroups.count == 0) {
@@ -113,7 +126,7 @@ static const BOOL kLogVerbose = NO;
         [serializationData.metaEntries addObjectsFromArray:metaEntries];
     }
     
-    return [KdbSerialization serialize:serializationData password:database.masterPassword ppError:error];
+    return [KdbSerialization serialize:serializationData password:database.masterPassword keyFileDigest:database.keyFileDigest ppError:error];
 }
 
 -(void)nodeModelToGroupsAndEntries:(int)level

@@ -58,9 +58,13 @@ static const BOOL kLogVerbose = NO;
 }
 
 - (StrongboxDatabase *)open:(NSData *)data password:(NSString *)password error:(NSError **)error {
+    return [self open:data password:password keyFileDigest:nil error:error];
+}
+
+- (StrongboxDatabase *)open:(NSData *)data password:(NSString *)password keyFileDigest:(NSData *)keyFileDigest error:(NSError **)error {
     // 1. First get XML out of the encrypted binary...
     
-    Kdbx4SerializationData *serializationData = [Kdbx4Serialization deserialize:data password:password ppError:error];
+    Kdbx4SerializationData *serializationData = [Kdbx4Serialization deserialize:data password:password keyFileDigest:keyFileDigest ppError:error];
     
     if(serializationData == nil) {
         NSLog(@"Error getting Decrypting KDBX4 binary: [%@]", *error);
@@ -117,12 +121,13 @@ static const BOOL kLogVerbose = NO;
     tag.xmlDocument = xmlDoc;
     
     ret.adaptorTag = tag;
+    ret.keyFileDigest = keyFileDigest;
     
     return ret;
 }
 
 - (NSData *)save:(StrongboxDatabase *)database error:(NSError **)error {
-    if(!database.masterPassword) {
+    if(!database.masterPassword && !database.keyFileDigest) {
         if(error) {
             *error = [Utils createNSError:@"Master Password not set." errorCode:-3];
         }
@@ -195,7 +200,7 @@ static const BOOL kLogVerbose = NO;
     serializationData.cipherUuid = metadata.cipherUuid;
     serializationData.attachments = database.attachments;
     
-    NSData *data = [Kdbx4Serialization serialize:serializationData password:database.masterPassword ppError:error];
+    NSData *data = [Kdbx4Serialization serialize:serializationData password:database.masterPassword keyFileDigest:database.keyFileDigest ppError:error];
     if(!data) {
         NSLog(@"Could not serialize Document to KDBX.");
 

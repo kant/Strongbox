@@ -42,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSArray<DatabaseAttachment*> *attachments;
 @property (nonatomic, readonly) NSDictionary<NSUUID*, NSData*>* customIcons;
 @property (nonatomic, retain, nullable) NSString *masterPassword;
+@property (nonatomic, retain, nullable) NSData *keyFileDigest;
 
 - (void)removeNodeAttachment:(Node*)node atIndex:(NSUInteger)atIndex;
 - (void)addNodeAttachment:(Node*)node attachment:(UiAttachment*)attachment;

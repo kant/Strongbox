@@ -36,6 +36,10 @@
 }
 
 - (StrongboxDatabase *)open:(NSData *)data password:(NSString *)password error:(NSError **)error {
+    return [self open:data password:password keyFileDigest:nil error:error];
+}
+
+- (StrongboxDatabase *)open:(NSData *)data password:(NSString *)password keyFileDigest:(NSData *)keyFileDigest error:(NSError **)error {
     if (![PwSafeDatabase isAValidSafe:data]) {
         NSLog(@"Not a valid safe!");
         

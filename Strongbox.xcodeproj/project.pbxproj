@@ -233,6 +233,12 @@
 		4D8C14972074F63B00CE9CAE /* twofish.c in Sources */ = {isa = PBXBuildFile; fileRef = 4D8C14962074F63B00CE9CAE /* twofish.c */; };
 		4D8C14992074F64A00CE9CAE /* crypt_argchk.c in Sources */ = {isa = PBXBuildFile; fileRef = 4D8C14982074F64A00CE9CAE /* crypt_argchk.c */; };
 		4D8C149B2074F67100CE9CAE /* google-10000-english-usa-no-swears-medium.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4D8C149A2074F67100CE9CAE /* google-10000-english-usa-no-swears-medium.txt */; };
+		4D8FBEE621A9A5D7004797FA /* KeePassKeyFileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8FBEE521A9A5D7004797FA /* KeePassKeyFileTests.m */; };
+		4D8FBEEB21A9A70F004797FA /* kp2-keyfile.kdbx in Resources */ = {isa = PBXBuildFile; fileRef = 4D8FBEE821A9A70F004797FA /* kp2-keyfile.kdbx */; };
+		4D8FBEEC21A9A70F004797FA /* ferrari.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4D8FBEE921A9A70F004797FA /* ferrari.jpg */; };
+		4D8FBEED21A9A70F004797FA /* kp1-keyfile.kdb in Resources */ = {isa = PBXBuildFile; fileRef = 4D8FBEEA21A9A70F004797FA /* kp1-keyfile.kdb */; };
+		4D8FBEF121A9D9C5004797FA /* kp2-keyfile-only.kdbx in Resources */ = {isa = PBXBuildFile; fileRef = 4D8FBEEF21A9D9C4004797FA /* kp2-keyfile-only.kdbx */; };
+		4D8FBEF221A9D9C5004797FA /* kp1-keyfile-only.kdb in Resources */ = {isa = PBXBuildFile; fileRef = 4D8FBEF021A9D9C5004797FA /* kp1-keyfile-only.kdb */; };
 		4D915D741EDC068D002615F6 /* PasswordHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D915D731EDC068D002615F6 /* PasswordHistoryViewController.m */; };
 		4D915D771EDC06A0002615F6 /* PreviousPasswordsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D915D761EDC06A0002615F6 /* PreviousPasswordsTableViewController.m */; };
 		4D915D7A1EDC4B77002615F6 /* Alerts.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D915D791EDC4B77002615F6 /* Alerts.m */; };
@@ -606,6 +612,13 @@
 		4D8C14962074F63B00CE9CAE /* twofish.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = twofish.c; path = model/pwsafe/twofish/twofish.c; sourceTree = SOURCE_ROOT; };
 		4D8C14982074F64A00CE9CAE /* crypt_argchk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = crypt_argchk.c; path = model/pwsafe/twofish/crypt_argchk.c; sourceTree = SOURCE_ROOT; };
 		4D8C149A2074F67100CE9CAE /* google-10000-english-usa-no-swears-medium.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "google-10000-english-usa-no-swears-medium.txt"; path = "resources/google-10000-english-usa-no-swears-medium.txt"; sourceTree = SOURCE_ROOT; };
+		4D8FBEE521A9A5D7004797FA /* KeePassKeyFileTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeePassKeyFileTests.m; sourceTree = "<group>"; };
+		4D8FBEE821A9A70F004797FA /* kp2-keyfile.kdbx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "kp2-keyfile.kdbx"; sourceTree = "<group>"; };
+		4D8FBEE921A9A70F004797FA /* ferrari.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ferrari.jpg; sourceTree = "<group>"; };
+		4D8FBEEA21A9A70F004797FA /* kp1-keyfile.kdb */ = {isa = PBXFileReference; lastKnownFileType = file; path = "kp1-keyfile.kdb"; sourceTree = "<group>"; };
+		4D8FBEEE21A9CA0F004797FA /* KdbxSerializationCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KdbxSerializationCommon.h; path = model/keepass/KdbxSerializationCommon.h; sourceTree = "<group>"; };
+		4D8FBEEF21A9D9C4004797FA /* kp2-keyfile-only.kdbx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "kp2-keyfile-only.kdbx"; sourceTree = "<group>"; };
+		4D8FBEF021A9D9C5004797FA /* kp1-keyfile-only.kdb */ = {isa = PBXFileReference; lastKnownFileType = file; path = "kp1-keyfile-only.kdb"; sourceTree = "<group>"; };
 		4D915D721EDC068D002615F6 /* PasswordHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PasswordHistoryViewController.h; path = StrongBox/PasswordHistoryViewController.h; sourceTree = "<group>"; };
 		4D915D731EDC068D002615F6 /* PasswordHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PasswordHistoryViewController.m; path = StrongBox/PasswordHistoryViewController.m; sourceTree = "<group>"; };
 		4D915D751EDC06A0002615F6 /* PreviousPasswordsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreviousPasswordsTableViewController.h; path = StrongBox/PreviousPasswordsTableViewController.h; sourceTree = "<group>"; };
@@ -780,6 +793,7 @@
 		4D25E8EC2175F4CE00ACF108 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				4D8FBEE521A9A5D7004797FA /* KeePassKeyFileTests.m */,
 				4D98344621775F3800731FFC /* test-files */,
 				4D6FE2C62194469600EB9997 /* KdbDatabaseTests.m */,
 				4D3AC31B219066FC0010CFCD /* VariantDictionaryTests.m */,
@@ -1049,6 +1063,7 @@
 				4D9E08E321822F38007BA1E7 /* crypto */,
 				4D196787217F0BEE0057DF06 /* Xml */,
 				4D3E14772183008A00A41CA0 /* KdbxSerializationCommon.m */,
+				4D8FBEEE21A9CA0F004797FA /* KdbxSerializationCommon.h */,
 				4D4766DA2178C82B00C4358F /* DecryptionParameters.h */,
 				4D27D74A21A00AB900CA7B06 /* KeePass2TagPackage.h */,
 				4D27D74B21A00AB900CA7B06 /* KeePass2TagPackage.m */,
@@ -1077,9 +1092,22 @@
 			name = PSL;
 			sourceTree = "<group>";
 		};
+		4D8FBEE721A9A6FD004797FA /* KeyFile */ = {
+			isa = PBXGroup;
+			children = (
+				4D8FBEE921A9A70F004797FA /* ferrari.jpg */,
+				4D8FBEF021A9D9C5004797FA /* kp1-keyfile-only.kdb */,
+				4D8FBEEF21A9D9C4004797FA /* kp2-keyfile-only.kdbx */,
+				4D8FBEEA21A9A70F004797FA /* kp1-keyfile.kdb */,
+				4D8FBEE821A9A70F004797FA /* kp2-keyfile.kdbx */,
+			);
+			name = KeyFile;
+			sourceTree = "<group>";
+		};
 		4D98344621775F3800731FFC /* test-files */ = {
 			isa = PBXGroup;
 			children = (
+				4D8FBEE721A9A6FD004797FA /* KeyFile */,
 				4D6FE2C8219446A000EB9997 /* Kdb */,
 				4DD41FBB2182FCAB00FDDBB5 /* Kdbx4 */,
 				4D1967B0217F83440057DF06 /* a.kdbx */,
@@ -1474,17 +1502,21 @@
 			files = (
 				4D1967A5217F58040057DF06 /* empty-meta.xml in Resources */,
 				4D40935A217E2AA900E69844 /* ladder-single-entry.xml in Resources */,
+				4D8FBEED21A9A70F004797FA /* kp1-keyfile.kdb in Resources */,
 				4D1967AB217F5AE00057DF06 /* empty-entry.xml in Resources */,
 				4D98344A21777E3000731FFC /* password-two-entries-ladder.xml in Resources */,
 				4D983441217743F300731FFC /* generic.kdbx in Resources */,
+				4D8FBEF121A9D9C5004797FA /* kp2-keyfile-only.kdbx in Resources */,
 				4D1967A9217F5A7C0057DF06 /* empty-root-group.xml in Resources */,
 				4DA12F0A219860BD0000CEBB /* custom-icon.kdbx in Resources */,
 				4D210F5121959F3300B061B1 /* Database-1.kdb in Resources */,
 				4DCC3F8A2177BA1A00FB13C2 /* password-three-entries-ladder.xml in Resources */,
 				4D98343A21773B3300731FFC /* generic-keepass.xml in Resources */,
+				4D8FBEEB21A9A70F004797FA /* kp2-keyfile.kdbx in Resources */,
 				4D1967AF217F82FF0057DF06 /* Database.kdbx in Resources */,
 				4D1967A7217F58660057DF06 /* empty-root.xml in Resources */,
 				4D31B374219B32DE00C190C0 /* db-4-nocompression.kdbx in Resources */,
+				4D8FBEF221A9D9C5004797FA /* kp1-keyfile-only.kdb in Resources */,
 				4D98344821775F5600731FFC /* password-ladder.xml in Resources */,
 				4D7C21D22180EAC200458A5B /* funky.xml in Resources */,
 				4D1967B1217F83440057DF06 /* a.kdbx in Resources */,
@@ -1500,6 +1532,7 @@
 				4D6A45C3217A0D7400724A3D /* keypass-database-with-binary.xml in Resources */,
 				4DA12EFF219834B90000CEBB /* custom-icon.xml in Resources */,
 				4D9834432177473200731FFC /* generic-non-gzipped.kdbx in Resources */,
+				4D8FBEEC21A9A70F004797FA /* ferrari.jpg in Resources */,
 				4D4598C72192F66A00792EF7 /* Database-ChCha20-AesKdf.kdbx in Resources */,
 				4D4598CA2193033800792EF7 /* TwoFish-with-AesKdf.kdbx in Resources */,
 				4D6FE2BB2194400300EB9997 /* twofish-argon-2.kdbx in Resources */,
@@ -1695,6 +1728,7 @@
 				4DD41FBA2182FBFB00FDDBB5 /* Kdbx4DatabaseTests.m in Sources */,
 				4D19679F217F4E760057DF06 /* KeePassXmlStrongboxModelAdaptorTests.m in Sources */,
 				4DC5B9BE217B31F100FE9DD9 /* CommonTesting.m in Sources */,
+				4D8FBEE621A9A5D7004797FA /* KeePassKeyFileTests.m in Sources */,
 				4D93AC912184ADE000A141C6 /* MiscScratchPadTests.m in Sources */,
 				4D6FE2C72194469600EB9997 /* KdbDatabaseTests.m in Sources */,
 				4D3AC31C219066FC0010CFCD /* VariantDictionaryTests.m in Sources */,
