@@ -21,19 +21,19 @@
 #import "ISMessages/ISMessages.h"
 #endif
 
-typedef void(^KeyFileCompletionBlock)(NSString* password, NSData *keyFileDigest, BOOL success, NSError* error);
 typedef void(^CompletionBlock)(Model* model);
+typedef void(^PasswordAndKeyFileCompletionBlock)(BOOL response);
 
 @interface OpenSafeSequenceHelper () <UIDocumentPickerDelegate>
 
 @property (nonatomic, strong) NSString* biometricIdName;
 @property (nonatomic, strong) UIAlertController *alertController;
-@property (nonatomic) KeyFileCompletionBlock keyFileCompletion;
 @property (nonnull) UIViewController* viewController;
 @property (nonnull) SafeMetaData* safe;
 @property BOOL askAboutTouchIdEnrolIfAppropriate;
 @property BOOL openAutoFillCache;
 @property (nonnull) CompletionBlock completion;
+@property (nonnull) PasswordAndKeyFileCompletionBlock passwordAndKeyFileCompletionBlock;
 
 @property BOOL isTouchIdOpen;
 @property NSString* masterPassword;
@@ -150,18 +150,19 @@ askAboutTouchIdEnrolIfAppropriate:(BOOL)askAboutTouchIdEnrolIfAppropriate
 }
 
 - (void)promptForSafePassword {
-    [self promptForPasswordAndOrKeyFile:^(NSString *password, NSData *keyFileDigest, BOOL success, NSError *error) {
-        if (success) {
+    self.passwordAndKeyFileCompletionBlock = ^(BOOL response) {
+        NSLog(@"promptForPasswordAndOrKeyFile Done: %d", response);
+        
+        if (response) {
             self.isTouchIdOpen = NO;
-            self.masterPassword = password;
-            self.keyFileDigest = keyFileDigest;
-
             [self openSafe];
         }
-        else if(error) {
-            // TODO: Display error or no?
+        else {
+            // TODO: Should we call completion?
         }
-    }];
+    };
+    
+    [self promptForPasswordAndOrKeyFile];
 }
 
 - (void)  openSafe {
@@ -299,7 +300,7 @@ BOOL providerCanFallbackToOfflineCache(id<SafeStorageProvider> provider, SafeMet
     }
     else {
         if (self.askAboutTouchIdEnrolIfAppropriate &&
-            !cacheMode && 
+            !cacheMode &&
             self.safe.isTouchIdEnabled &&
             !self.safe.isEnrolledForTouchId &&
             [IOsUtils isTouchIDAvailable] &&
@@ -410,7 +411,13 @@ static NSString *getLastCachedDate(SafeMetaData *safe) {
 
 }
 
-- (void)promptForPasswordAndOrKeyFile:(KeyFileCompletionBlock)completion {
+- (void)promptForPasswordAndOrKeyFile {
+    NSString *title = [NSString stringWithFormat:@"Password for %@", self.safe.nickName];
+    
+    self.alertController = [UIAlertController alertControllerWithTitle:title
+                                                               message:@"Please Provide Credentials"
+                                                        preferredStyle:UIAlertControllerStyleAlert];
+    
     [self.alertController addTextFieldWithConfigurationHandler:^(UITextField *_Nonnull textField) {
         textField.secureTextEntry = YES;
     }];
@@ -418,21 +425,22 @@ static NSString *getLastCachedDate(SafeMetaData *safe) {
     UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"OK"
                                                   style:UIAlertActionStyleDefault
                                                 handler:^(UIAlertAction *a) {
-                                                    completion((self.alertController.textFields[0]).text, nil, true, nil);
+                                                    self.masterPassword = self.alertController.textFields[0].text;
+                                                    self.passwordAndKeyFileCompletionBlock(YES);
                                                 }];
     
     UIAlertAction *keyFileAction = [UIAlertAction actionWithTitle:@"Key File..."
                                                             style:kNilOptions
                                                           handler:^(UIAlertAction *a) {
-                                                              [self onUseKeyFile:self.viewController completion:completion];
+                                                              self.masterPassword = self.alertController.textFields[0].text;
+                                                              [self onUseKeyFile:self.viewController];
                                                           }];
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
                                                            style:UIAlertActionStyleCancel
                                                          handler:^(UIAlertAction *a) {
-                                                             completion(nil, nil, false, nil);
+                                                             self.passwordAndKeyFileCompletionBlock(NO);
                                                          }];
-    
     
     [self.alertController addAction:defaultAction];
     [self.alertController addAction:keyFileAction];
@@ -441,12 +449,15 @@ static NSString *getLastCachedDate(SafeMetaData *safe) {
     [self.viewController presentViewController:self.alertController animated:YES completion:nil];
 }
 
-- (void)onUseKeyFile:(UIViewController*)parentVc completion:(KeyFileCompletionBlock)completion {
+- (void)onUseKeyFile:(UIViewController*)parentVc {
     UIDocumentPickerViewController *vc = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:@[(NSString*)kUTTypeItem] inMode:UIDocumentPickerModeImport];
     vc.delegate = self;
     
-    self.keyFileCompletion = completion;
-    [parentVc presentViewController:vc animated:YES completion:nil]; // TODO: Completion should be called
+    [parentVc presentViewController:vc animated:YES completion:nil];
+}
+
+- (void)documentPickerWasCancelled:(UIDocumentPickerViewController *)controller {
+    self.passwordAndKeyFileCompletionBlock(NO);
 }
 
 - (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray<NSURL *> *)urls {
@@ -460,13 +471,12 @@ static NSString *getLastCachedDate(SafeMetaData *safe) {
     
     if(!data) {
         NSLog(@"Error: %@", error);
-        self.keyFileCompletion(nil, nil, NO, error);
     }
     else {
-        NSString* password = @"";
-        NSData* keyFileDigest = sha256(data);
-        self.keyFileCompletion(password, keyFileDigest, YES, nil);
+        self.keyFileDigest = sha256(data);
     }
+    
+    self.passwordAndKeyFileCompletionBlock(YES);
 }
 
 @end
