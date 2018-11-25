@@ -93,4 +93,15 @@
     [JNKeychain saveValue:touchIdPassword forKey:self.uuid];
 }
 
+- (NSData *)touchIdKeyFileDigest {
+    NSString *key = [NSString stringWithFormat:@"%@-keyFileDigest", self.uuid];
+    return [JNKeychain loadValueForKey:key];
+}
+
+- (void)setTouchIdKeyFileDigest:(NSData *)touchIdKeyFileDigest {
+    // TODO: NIL?!
+    NSString *key = [NSString stringWithFormat:@"%@-keyFileDigest", self.uuid];
+    [JNKeychain saveValue:touchIdKeyFileDigest forKey:key];
+}
+
 @end

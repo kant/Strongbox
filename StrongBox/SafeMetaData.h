@@ -17,7 +17,9 @@
                   fileIdentifier:(NSString*)fileIdentifier;
 
 - (void)removeTouchIdPassword;
+
 @property (nonatomic, strong) NSString* touchIdPassword;
+@property (nonatomic, strong) NSData* touchIdKeyFileDigest;
 
 @property (nonatomic, strong) NSString *uuid;
 @property (nonatomic, strong) NSString *nickName;

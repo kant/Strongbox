@@ -195,7 +195,7 @@ static const BOOL kLogVerbose = NO;
 
     if(!checkHeaderHmac(safeData, endOfHeadersOffset, keys.hmacKey)) {
         if (ppError != nil) {
-            *ppError = [Utils createNSError:@"Incorrect Passphrase" errorCode:-3];
+            *ppError = [Utils createNSError:@"Incorrect Passphrase/Key File (Composite Key)" errorCode:-3];
         }
         
         return nil;

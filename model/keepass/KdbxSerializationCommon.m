@@ -207,7 +207,7 @@ NSString* headerEntryIdentifierString(HeaderEntryIdentifier identifier) {
 }
 
 NSData *getCompositeKey(NSString* password, NSData* keyFileDigest) {
-    NSData *hashedPassword = password ? sha256([password dataUsingEncoding:NSUTF8StringEncoding]) : nil;
+    NSData *hashedPassword = password.length ? sha256([password dataUsingEncoding:NSUTF8StringEncoding]) : nil;
     NSData *hashedKeyFileData = keyFileDigest;
     
     // Concatenate together in one big sha256...

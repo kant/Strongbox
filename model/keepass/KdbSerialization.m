@@ -75,10 +75,10 @@ static const BOOL kLogVerbose = NO;
 }
 
 static NSData *getComposite(NSString * _Nonnull password, NSData * _Nullable keyFileDigest) {
-    if(password && !keyFileDigest) {
+    if(password.length && !keyFileDigest) {
         return sha256([password dataUsingEncoding:NSUTF8StringEncoding]);
     }
-    else if(keyFileDigest && !password) {
+    else if(keyFileDigest && !password.length) {
         return keyFileDigest;
     }
     else {
@@ -181,7 +181,7 @@ static NSData *getComposite(NSString * _Nonnull password, NSData * _Nullable key
     if(![sha256(pt) isEqualToData:contentsSha256]) {
         NSLog(@"Actual Database Contents Hash does not match expected. This file is corrupt or the password is incorect.");
         if(error) {
-            *error = [Utils createNSError:@"Incorrect Passphrase or Corrupt File." errorCode:-5];
+            *error = [Utils createNSError:@"Incorrect Passphrase/Key File (Composite Key) or Corrupt File." errorCode:-5];
         }
         return nil;
     }

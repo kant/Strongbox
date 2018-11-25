@@ -90,6 +90,14 @@
 - (instancetype)initExistingWithDataAndPassword:(NSData *)safeData
                                        password:(NSString *)password
                                           error:(NSError **)ppError {
+    return [self initExistingWithDataAndPassword:safeData password:password keyFileDigest:nil error:ppError];
+}
+
+- (instancetype)initExistingWithDataAndPassword:(NSData *)safeData
+                                       password:(NSString *)password
+                                  keyFileDigest:(NSData*)keyFileDigest
+                                          error:(NSError **)ppError {
+
     if(self = [super init]) {
         if([PwSafeDatabase isAValidSafe:safeData]) {
             self.adaptor = [[PwSafeDatabase alloc] init];
@@ -107,7 +115,7 @@
             return nil;
         }
 
-        self.theSafe = [self.adaptor open:safeData password:password error:ppError];
+        self.theSafe = [self.adaptor open:safeData password:password keyFileDigest:keyFileDigest error:ppError];
         
         if (self.theSafe == nil) {
             return nil;

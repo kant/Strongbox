@@ -213,7 +213,7 @@ static BOOL kLogVerbose = NO;
     NSData *actualStartStream = [decrypted subdataWithRange:NSMakeRange(0, decryptionParameters.streamStartBytes.length)];
     if(![decryptionParameters.streamStartBytes isEqualToData:actualStartStream]) {
         if (ppError != nil) {
-            *ppError = [Utils createNSError:@"Passphrase Incorrect" errorCode:-6];
+            *ppError = [Utils createNSError:@"Passphrase or Key File (Composite Key) Incorrect" errorCode:-6];
         }
         
         return nil;

@@ -66,6 +66,22 @@
     NSLog(@"%@", db);
 }
 
+- (void)testKeePass2KeyFileOnlyEmptyNotNil {
+    NSData *data = [CommonTesting getDataFromBundleFile:@"kp2-keyfile-only" ofType:@"kdbx"];
+    NSData *keyFileDigest = sha256([CommonTesting getDataFromBundleFile:@"ferrari" ofType:@"jpg"]);
+    
+    XCTAssert(data);
+    XCTAssert(keyFileDigest);
+    
+    NSError *error;
+    KeePassDatabase* adaptor = [[KeePassDatabase alloc] init];
+    StrongboxDatabase *db = [adaptor open:data password:@"" keyFileDigest:keyFileDigest error:&error];
+    
+    XCTAssert(db);
+    
+    NSLog(@"%@", db);
+}
+
 - (void)testKeePass1KeyFileOnly {
     NSData *data = [CommonTesting getDataFromBundleFile:@"kp1-keyfile-only" ofType:@"kdb"];
     NSData *keyFileDigest = sha256([CommonTesting getDataFromBundleFile:@"ferrari" ofType:@"jpg"]);
@@ -76,6 +92,21 @@
     NSError *error;
     Kdb1Database* adaptor = [[Kdb1Database alloc] init];
     StrongboxDatabase *db = [adaptor open:data password:nil keyFileDigest:keyFileDigest error:&error];
+    
+    XCTAssert(db);
+    NSLog(@"%@", db);
+}
+
+- (void)testKeePass1KeyFileOnlyEmptyNotNil {
+    NSData *data = [CommonTesting getDataFromBundleFile:@"kp1-keyfile-only" ofType:@"kdb"];
+    NSData *keyFileDigest = sha256([CommonTesting getDataFromBundleFile:@"ferrari" ofType:@"jpg"]);
+    
+    XCTAssert(data);
+    XCTAssert(keyFileDigest);
+    
+    NSError *error;
+    Kdb1Database* adaptor = [[Kdb1Database alloc] init];
+    StrongboxDatabase *db = [adaptor open:data password:@"" keyFileDigest:keyFileDigest error:&error];
     
     XCTAssert(db);
     NSLog(@"%@", db);
